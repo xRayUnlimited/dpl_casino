@@ -1,9 +1,18 @@
-class Card
-  attr_accessor :rank, :suit, :color
+require 'pry'
 
-  def initialize(rank, suit, color)
+class Card
+  attr_reader :rank, :suit
+
+  def initialize(rank, suit)
     @rank = rank
     @suit = suit
-    @color = color
+  end
+
+  def face_card?
+    ['J','Q','K'].include?(@rank)
+  end
+
+  def ace_card?
+    ['A'].include?(@rank)
   end
 end

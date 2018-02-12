@@ -1,7 +1,5 @@
 require_relative 'card'
 
-
-
 class Deck
 
   attr_accessor :cards
@@ -9,7 +7,7 @@ class Deck
   def initialize
     @cards = []
     @suits = %w(♦ ♣ ♠ ♥)
-
+    @rank = %w(2 3 4 5 6 7 8 9 10 J Q K A)
   end
 
   def build_deck

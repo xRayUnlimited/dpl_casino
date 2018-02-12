@@ -30,6 +30,7 @@ class Casino
         puts "High Low under construction"
       when 3
         puts "Blackjack"
+        Blackjack.new
       when 4
         puts "Goodbye"
         exit
