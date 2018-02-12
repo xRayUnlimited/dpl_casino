@@ -1,5 +1,7 @@
 require_relative 'player'
-require_relative 'slots'
+#require_relative 'slots'
+#require_relative 'blackjack'
+#require_relative 'wallet'
 #require_relative 'high_low'
 
 class Casino
@@ -10,23 +12,25 @@ class Casino
   end
 
   def menu
-    puts "===DPL CASINO==="
+    puts "=================="
     puts "Select a game"
     puts "1) Slots"
     puts "2) High Low"
     puts "3) Black Jack"
-    puts "4) Leave Casino"
+    puts "4) Exit casino"
+    puts "==================="
     enter_game(gets.to_i)
   end
 
   def enter_game(choice)
     case choice
       when 1
-        Slot.new(@player, self)
+        Slots.new(@player, self)
       when 2
         puts "High Low under construction"
       when 3
-        puts "Black Jack under construction"
+        puts "Blackjack"
+        Blackjack.new
       when 4
         puts "Goodbye"
         exit

@@ -1,26 +1,38 @@
 require_relative 'card'
+require 'pry'
 
 class Deck
+
+  SUITS = %w(♦ ♣ ♠ ♥)
+  RANKS = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+
   attr_accessor :cards
 
   def initialize
-    @ranks = %w(A 2 3 4 5 6 7 8 9 10 J Q K)
-    @suits = %w(Spades Diamonds Clubs Hearts)
-    @cards = []
-    generate_deck
+    @cards = build_deck
+  end
+
+  def build_deck
+    cards = []
+    SUITS.each do |suit|
+      RANKS.each do |rank|
+        cards << Card.new(rank, suit)
+      end
+    end
+    cards.shuffle!
   end
 
   def generate_deck
     @suits.each do |suit|
-      @ranks.each do |rank|
-        color = (suit == 'Spades' || suit == 'Clubs') ? 'black' : 'red'
-        @cards << Card.new(rank, suit, color)
+      @ranks.size.times do |i|
+        # Ternary Operator
+        color = (suit == '♣' || suit == '♠') ? 'Black' : 'Red' 
+        @cards << Card.new(@ranks[i], suit, color)
       end
     end
   end
 
-  def shuffle_cards
-    @cards.shuffle
+  def deal(num)
+    cards.pop(num)
   end
 end
-
