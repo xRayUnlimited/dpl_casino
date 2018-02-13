@@ -59,6 +59,7 @@ print `clear`
     @casino.menu
   end
 
+
 end
 def enough
   puts "How much do you want to bet?"
