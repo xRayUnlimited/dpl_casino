@@ -1,12 +1,17 @@
-# Class Rps
-# attr_reader :player, :casino
-#
-# def initialize(player, casino)
-#   @player = player
-#   @casino = casino
-# end
-require 'pry'
+require_relative 'player'
+
+class Rockpaperscissors
+attr_accessor :casino, :player
+
+def initialize (player, casino)
+  @player = player
+  @casino = casino
+  playrps
+end
+
 def playrps
+  print `clear`
+  enough
   print `clear`
   puts "choose your throw"
   puts ""
@@ -15,29 +20,18 @@ def playrps
   puts "Paper"
   puts "Scissors"
   puts ""
+  puts "or type 'lobby' to go back"
   throws
 end
 
 def throws
 
-  throw = gets.strip.downcase
-  case
-    when throw == "rock"
-      @rockend.sample.call
-    when throw == "paper"
-      @paperend.sample.call
-    when throw == "scissors"
-      @scissorsend.sample.call
-  else
-    `say "Cheater"`
-    playrps
-end
-end
 
 rocklose = lambda {
   `say "paper beats Rock, you lose"`
   puts "Paper beats Rock"
   puts "You Lose"
+  @player.subtracting (@bet)
   puts ""
   playagain
 }
@@ -53,15 +47,17 @@ rockwin = lambda {
   `say "Rock Beats Scissors, You Win!"`
   puts "Rock Beats Scissors"
   puts "You Win!"
+  @player.adding (@bet)
   playagain
 }
 
-@rockend = [rocklose, rocklose, rocktie, rocktie, rockwin]
+rockend = [rocklose, rocklose, rocktie, rocktie, rockwin]
 
 paperlose = lambda {
   `say "scissors beats paper, you lose"`
   puts "scissors beats paper"
   puts "You Lose"
+  @player.subtracting (@bet)
   puts ""
   playagain
 }
@@ -77,15 +73,17 @@ paperwin = lambda {
   `say "Paper Beats Rock, You Win!"`
   puts "Paper Beats Rock"
   puts "You Win!"
+  @player.adding (@bet)
   playagain
 }
 
-@paperend = [paperlose, paperlose, papertie, papertie, paperwin]
+paperend = [paperlose, paperlose, papertie, papertie, paperwin]
 
   scissorslose = lambda {
     `say "Rock beats Scissors, you lose"`
     puts "Rock beats Scissors"
     puts "You Lose"
+    @player.subtracting (@bet)
     puts ""
     playagain
   }
@@ -101,24 +99,53 @@ paperwin = lambda {
     `say "scissors beats paper, You Win!"`
     puts "Scissors beats Paper!"
     puts "You Win!"
+    @player.adding (@bet)
     playagain
   }
 
-  @scissorsend = [scissorslose, scissorslose, scissorstie, scissorstie, scissorswin]
+  scissorsend = [scissorslose, scissorslose, scissorstie, scissorstie, scissorswin]
 
-def playagain
-  puts ""
-  puts "want to play again?"
-  answer = gets.strip.downcase
-  case answer
-  when "yes"
-    playrps
-  when "y"
-    playrps
+  throw = gets.strip.downcase
+  case
+    when throw == "rock"
+      rockend.sample.call
+    when throw == "paper"
+      paperend.sample.call
+    when throw == "scissors"
+      scissorsend.sample.call
+    when throw == "lobby"
+      @casino.menu
   else
+    `say "Cheater"`
+    playrps
 
-  end
+end
 end
 
+  def playagain
+    puts ""
+    puts "want to play again?"
+    answer = gets.strip.downcase
+    case answer
+    when "yes"
+      playrps
+    when "y"
+      playrps
+    else
+      @casino.menu
+    end
+  end
 
-playrps
+
+def enough
+  puts "How much do you want to bet?"
+  @bet = gets.to_i
+    if @bet < @player.wallet
+    puts ""
+     else
+       puts "You don't have enough to bet that much."
+       enough
+    end
+      puts""
+  end
+end

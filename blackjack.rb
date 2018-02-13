@@ -1,7 +1,6 @@
 require_relative 'player'
 require_relative 'card'
 require_relative 'deck'
-require_relative 'wallet'
 
 class Blackjack
   attr_accessor :player, :deck, :card
@@ -68,7 +67,6 @@ class Blackjack
     end
   end
 
-  
   def hit
     print `clear`
     puts "Current bet: $#{@bet}"

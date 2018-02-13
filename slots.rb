@@ -1,18 +1,24 @@
+require_relative 'player'
 class Slots
-  def initialize
-    puts "Welcome to my slot machine"
+  attr_accessor :casino, :player
+
+  def initialize (player, casino)
+    @player = player
+    @casino = casino
+    print `clear`
+    puts "Welcome to my slot machine."
+    puts ""
     place_bet
   end
 
   def place_bet
-    puts "Type in the amount you would like to bet."
-    bet = gets.to_i
+    enough
     run_slots
   end
 
 def run_slots
-  puts "==============="
-  puts "Match all 3 to win"
+  puts "==========================="
+  puts "Match numbers to win"
   option1 = rand(1..9)
   option2 = rand(1..9)
   option3 = rand(1..9)
@@ -21,20 +27,50 @@ def run_slots
   puts option3
 
   if option1 == option2 && option2 == option3
-    puts "You Win"
+    puts ""
+    puts "You Win BIG"
+    @player.adding (@bet*2)
+  elsif option1 == option2
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
+  elsif option2 == option3
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
+  elsif option1 == option3
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
   else
+    puts ""
     puts "You lose"
+    @player.subtracting (@bet)
+  end
+
+  #ask to play again or exit
+  puts ""
+  puts "Do you want to play again y / n"
+  answer = gets.strip.downcase
+  if answer == 'y'
+print `clear`
+    place_bet
+  else
+    @casino.menu
+  end
+
+
+
+end
+def enough
+  puts "How much do you want to bet?"
+  @bet = gets.to_i
+    if @bet < @player.wallet
+    puts ""
+     else
+       puts "You don't have enough to bet that much."
+       enough
+    end
+      puts""
   end
 end
-
-
-
-
-end
-
-Slots.new
-
-
-#elseif match 2 you win half the bet
-#keep it playing
-#exit
