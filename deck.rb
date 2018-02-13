@@ -11,6 +11,7 @@ class Deck
    generate_deck
  end
 
+ 
  def shuffle_cards
   @cards.shuffle
  end

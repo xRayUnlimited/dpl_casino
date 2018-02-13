@@ -68,6 +68,7 @@ class Blackjack
     end
   end
 
+  
   def hit
     print `clear`
     puts "Current bet: $#{@bet}"

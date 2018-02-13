@@ -6,6 +6,7 @@ class Wallet
       
     end
   
+    
   def self.add(amount)
     @amount += amount
     puts "You have $#{@player.wallet.amount}"
