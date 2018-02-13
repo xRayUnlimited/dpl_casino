@@ -1,6 +1,8 @@
-require_relative "card"
-require_relative "deck"
-require_relative "hand"
+require_relative "rcard"
+require_relative "rdeck"
+require_relative "rhand"
+require 'pry'
+
 class Blackjack
 deck = Deck.new
 
@@ -11,33 +13,33 @@ player_hand = Hand.new(player_cards)
 dealer_hand = Hand.new(dealer_cards)
 
 puts "Hello and welcome to BlackJack"
-puts "Press Enter to Deal "
+puts "Press [Enter] to Deal "
 input = gets.chomp
 
 puts "Players Cards: "
 puts "#{player_cards[0].rank}#{player_cards[0].suit}"
 puts "#{player_cards[1].rank}#{player_cards[1].suit}"
-puts ""
+puts
 puts "Score: #{player_hand.calculate_hand}"
-puts ""
+puts
 
 dealer_score = dealer_hand.calculate_hand
   while player_hand.calculate_hand < 21
-    print "Type y/n to Hit : "
-    user_choice = gets.chomp.downcase
+    print "Type (Y or N) to Hit : "
+    user_choice = gets.chomp
 
-    if user_choice == "y"
+    if user_choice.upcase == "Y"
       new_hand = deck.deal(1)
       player_cards += new_hand
       player_hand = Hand.new(player_cards)
       puts
-      puts "You drew a #{player_cards[2].rank}#{player_cards[2].suit}"
-      puts "Your score: #{player_hand.calculate_hand}"
+      puts "Player draws a #{player_cards[2].rank}#{player_cards[2].suit}"
+      puts "Player Score: #{player_hand.calculate_hand}"
       puts
-    elsif user_choice.downcase == "n"
+    elsif user_choice.upcase == "N"
       break
     else
-      puts "Try again"
+      puts "Invalid Selection"
     end
   end
 
@@ -48,11 +50,12 @@ dealer_score = dealer_hand.calculate_hand
       puts
       puts "Dealer Hits"
       puts
+      # binding.pry
       if dealer_hand.cards.size == 3
         puts "Dealer's Hand:"
-        puts " #{dealer_cards[0].rank}#{dealer_cards[0].suit}"
-        puts " #{dealer_cards[1].rank}#{dealer_cards[1].suit}"
-        puts " #{dealer_cards[2].rank}#{dealer_cards[2].suit}"
+        puts "#{dealer_cards[0].rank}#{dealer_cards[0].suit}"
+        puts "#{dealer_cards[1].rank}#{dealer_cards[1].suit}"
+        puts "#{dealer_cards[2].rank}#{dealer_cards[2].suit}"
         puts
       end
     end
@@ -62,7 +65,7 @@ dealer_score = dealer_hand.calculate_hand
 
   puts "Results:"
   if player_score > 21
-    puts "Player loses -  YOU BUST!"
+    puts "Player loses - You busted!"
   elsif player_score > dealer_score
     puts "Player: #{player_score}"
     puts "Dealer: #{dealer_score}"
@@ -70,7 +73,6 @@ dealer_score = dealer_hand.calculate_hand
     puts "Player Wins!"
   elsif dealer_score > 21
     puts "Dealer BUST - Player Wins"
-    puts "YOU WIN!"
   elsif player_score == dealer_score
     puts "DRAW!"
   else dealer_score > player_score
@@ -79,6 +81,5 @@ dealer_score = dealer_hand.calculate_hand
     puts
     puts "Dealer Wins!"
   end
-end
 
-Blackjack
+end

@@ -1,5 +1,5 @@
-require_relative 'deck'
-require_relative 'card'
+require_relative 'rdeck'
+require_relative 'rcard'
 require 'pry'
 
 class Hand
