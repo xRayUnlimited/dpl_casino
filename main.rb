@@ -1,7 +1,7 @@
 require_relative 'player'
 require_relative 'slots'
 require_relative 'rockpaperscissors'
-require_relative 'clackjack'
+#require_relative 'clackjack'
 # require_relative 'high_low'
 
 class Casino
@@ -26,7 +26,7 @@ class Casino
     puts "===LUCKY GAMES CASINO==="
     puts "Select a game, your remaining cash is #{@player.total}"
     puts "1) Slots"
-    puts "2) Black Jack"
+    # puts "2) Black Jack"
     puts "3) Rock Paper Scissors"
     puts "4) Leave Casino"
     puts ""

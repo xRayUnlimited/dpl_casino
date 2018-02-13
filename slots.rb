@@ -7,6 +7,7 @@ class Slots
     @casino = casino
     print `clear`
     puts "Welcome to my slot machine."
+    puts ""
     place_bet
   end
 
@@ -26,23 +27,29 @@ def run_slots
   puts option3
 
   if option1 == option2 && option2 == option3
-    puts "You Win"
-    @player.adding (@bet)
+    puts ""
+    puts "You Win BIG"
+    @player.adding (@bet*2)
   elsif option1 == option2
-    puts "You Win"
-    @player.addinghalf (@bet)
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
   elsif option2 == option3
-    puts "You Win"
-    @player.addinghalf (@bet)
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
   elsif option1 == option3
-    puts "You Win"
-    @player.addinghalf (@bet)
+    puts ''
+    puts "You win your money back"
+    puts "You still have #{@player.wallet} remaining"
   else
+    puts ""
     puts "You lose"
     @player.subtracting (@bet)
   end
 
   #ask to play again or exit
+  puts ""
   puts "Do you want to play again y / n"
   answer = gets.strip.downcase
   if answer == 'y'
