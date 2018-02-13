@@ -1,10 +1,9 @@
-require_relative 'clackjack'
+require_relative 'blackjack'
 require_relative 'player'
 #require_relative 'slots'
 #require_relative 'high_low'
 #require_relative 'rockpaperscissors'
-#require_relative 'wallet'
-
+require_relative 'wallet'
 
 class Casino
   attr_reader :player
@@ -16,12 +15,14 @@ class Casino
 
   def menu
     puts "================"
+    puts "Welcome to the Ruby Casino Floor!"
     puts "Select a game"
     puts "1) Slots"
     puts "2) High Low"
-    puts "3) Black Jack"
+    puts "3) Blackjack"
     puts "4) Rock Paper Scissors"
-    puts "5) Exit casino"
+    puts "5) Check your wallet balance"
+    puts "6) Exit casino"
     puts "==================="
     enter_game(gets.to_i)
   end
@@ -32,14 +33,16 @@ class Casino
         Slots.new(@player, self)
       when 2
         puts "High Low under construction"
-        Highlow.new
+        menu
       when 3
-        puts "Blackjack"
-        Blackjack.new
+        Blackjack.new(@player)
       when 4
-        puts "Rock Paper Scissors"
-        Rps.new()
+        puts "Rock Paper Scissors under construction"
+        menu
       when 5
+        puts "You have $#{player.wallet.amount}"
+        menu
+      when 6
         puts "Goodbye"
         exit
       else

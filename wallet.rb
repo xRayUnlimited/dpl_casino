@@ -1,6 +1,19 @@
 class Wallet
-    attr_accessor :money
-    def initialize
-        @money = 500
+    attr_accessor :amount
+  
+    def initialize(amount)
+      @amount = amount
+      
     end
-end
+  
+  def self.add(amount)
+    @amount += amount
+    puts "You have $#{@player.wallet.amount}"
+  end 
+  
+  def self.subtract(amount)
+    @amount -= amount
+    puts "You have $#{@player.wallet.amount}"  
+  end
+  
+  end
