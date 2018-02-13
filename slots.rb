@@ -1,12 +1,17 @@
+require_relative 'player'
 class Slots
-  def initialize
+  attr_accessor :casino, :player
+
+  def initialize (player, casino)
+    @player = player
+    @casino = casino
+    print `clear`
     puts "Welcome to my slot machine."
     place_bet
   end
 
   def place_bet
-    puts "Please type in the dollar amount you would like to bet."
-    @bet = gets.to_i
+    enough
     run_slots
   end
 
@@ -22,31 +27,41 @@ def run_slots
 
   if option1 == option2 && option2 == option3
     puts "You Win"
-    #TODO add @bet * 2 to wallet
+    @player.adding (@bet)
   elsif option1 == option2
     puts "You Win"
-    #TODO add @bet / 2 to wallet
+    @player.adding (@bet)
   elsif option2 == option3
     puts "You Win"
-    #TODO add @bet / 2 to wallet
+    @player.adding (@bet)
   elsif option1 == option3
     puts "You Win"
-    #TODO add @bet / 2 to wallet
+    @player.adding (@bet)
   else
     puts "You lose"
+    @player.subtracting (@bet)
   end
 
   #ask to play again or exit
   puts "Do you want to play again y / n"
   answer = gets.strip.downcase
-  if awswer == 'y'
+  if answer == 'y'
+print `clear`
     place_bet
   else
-    #TODO exit to main Casino
+    @casino.menu
   end
-    
-end
 
 end
-
-Slots.new
+def enough
+  puts "How much do you want to bet?"
+  @bet = gets.to_i
+    if @bet < @player.wallet
+    puts ""
+     else
+       puts "You don't have enough to bet that much."
+       enough
+    end
+      puts""
+  end
+end

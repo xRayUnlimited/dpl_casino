@@ -6,14 +6,20 @@ class Player
     @wallet = wallet
   end
 
-def self.add(amount)
-  @wallet += amount
+def adding(amount)
+  @amount = amount.to_i
+  @wallet += @amount
   puts "You have $#{@wallet} in your wallet."
 end
 
-def self.subtract(amount)
-  @awallet -= amount
+def subtracting(amount)
+  @amount = amount.to_i
+  @wallet -= @amount
   puts "You have $#{@wallet} in your wallet."
+end
+
+def total
+@wallet
 end
 
 end

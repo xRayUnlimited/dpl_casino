@@ -3,7 +3,19 @@ require_relative "rdeck"
 require_relative "rhand"
 require 'pry'
 
-class Blackjack
+class Clackjack
+attr_accessor :casino, :player
+
+def initialize (player, casino)
+  @player = player
+  @casino = casino
+  print `clear`
+  puts "Hello and welcome to BlackJack"
+  bjack
+end
+
+def bjack
+  print `clear`
 deck = Deck.new
 
 player_cards = deck.deal(2)
@@ -12,7 +24,7 @@ dealer_cards = deck.deal(2)
 player_hand = Hand.new(player_cards)
 dealer_hand = Hand.new(dealer_cards)
 
-puts "Hello and welcome to BlackJack"
+enough
 puts "Press [Enter] to Deal "
 input = gets.chomp
 
@@ -66,20 +78,56 @@ dealer_score = dealer_hand.calculate_hand
   puts "Results:"
   if player_score > 21
     puts "Player loses - You busted!"
+    @player.subtracting (@bet)
+    again
   elsif player_score > dealer_score
     puts "Player: #{player_score}"
     puts "Dealer: #{dealer_score}"
     puts
     puts "Player Wins!"
+    @player.adding (@bet)
+    again
   elsif dealer_score > 21
     puts "Dealer BUST - Player Wins"
+    @player.adding (@bet)
+    again
   elsif player_score == dealer_score
     puts "DRAW!"
+    puts @player.wallet
+    again
   else dealer_score > player_score
     puts "Player: #{player_score}"
     puts "Dealer: #{dealer_score}"
     puts
     puts "Dealer Wins!"
+    @player.subtracting (@bet)
+    again
+
+  end
+end
+
+def again
+  puts "do you want to play again?"
+  answer = gets.strip.downcase
+  case answer
+  when "yes"
+    bjack
+  when "y"
+    bjack
+  else
+   @casino.menu
+ end
+end
+def enough
+  puts "How much do you want to bet?"
+  @bet = gets.to_i
+    if @bet < @player.wallet
+    puts ""
+     else
+       puts "You don't have enough to bet that much."
+       enough
+    end
+      puts""
   end
 
 end
