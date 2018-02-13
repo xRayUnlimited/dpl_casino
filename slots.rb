@@ -30,13 +30,13 @@ def run_slots
     @player.adding (@bet)
   elsif option1 == option2
     puts "You Win"
-    @player.adding (@bet)
+    @player.addinghalf (@bet)
   elsif option2 == option3
     puts "You Win"
-    @player.adding (@bet)
+    @player.addinghalf (@bet)
   elsif option1 == option3
     puts "You Win"
-    @player.adding (@bet)
+    @player.addinghalf (@bet)
   else
     puts "You lose"
     @player.subtracting (@bet)

@@ -12,6 +12,12 @@ def adding(amount)
   puts "You have $#{@wallet} in your wallet."
 end
 
+def addinghalf(amount)
+  @amount = amount.to_i
+  @wallet += @amount/2
+  puts "You have $#{@wallet} in your wallet."
+end
+
 def subtracting(amount)
   @amount = amount.to_i
   @wallet -= @amount
