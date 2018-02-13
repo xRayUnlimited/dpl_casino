@@ -1,11 +1,11 @@
 require_relative 'player'
 require_relative 'slots'
+require_relative 'blackjack'
 require_relative 'rockpaperscissors'
-#require_relative 'clackjack'
 # require_relative 'high_low'
 
 class Casino
-  attr_accessor :rockpaperscissors, :slots, :player, :clackjack
+  attr_accessor :rockpaperscissors, :slots, :player, :blackjack
 
   def initialize
     print `clear`
@@ -24,12 +24,12 @@ class Casino
   def menu
     print `clear`
     puts "===LUCKY GAMES CASINO==="
-    puts "Select a game, your remaining cash is #{@player.total}"
+    puts "Select a game, your remaining money is $#{@player.total}"
     puts "1) Slots"
-    # puts "2) Black Jack"
+    puts "2) Blackjack"
     puts "3) Rock Paper Scissors"
     puts "4) Leave Casino"
-    puts ""
+    puts "========================"
     enter_game(gets.to_i)
   end
 
@@ -38,7 +38,7 @@ class Casino
       when 1
         Slots.new(@player, self)
       when 2
-        Clackjack.new(@player, self)
+        Blackjack.new(@player)
       when 3
         Rockpaperscissors.new(@player, self)
       when 4
