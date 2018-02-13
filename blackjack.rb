@@ -2,13 +2,16 @@ require_relative 'player'
 require_relative 'card'
 require_relative 'deck'
 
+
 class Blackjack
   attr_accessor :player, :deck, :card
-  def initialize(player)
+  def initialize(player, casino)
+    @casino = casino
     @player = player
     @cards = Deck.new
     @player_hand = []
     @dealer_hand = []
+    print `clear`
     puts "Let's play Blackjack, #{player.name}!"
     puts "Select 1 to get started."
     menu
@@ -22,13 +25,14 @@ class Blackjack
     choice = gets.strip.to_i
     if choice == 1
       place_bet
+    else
+      @casino.menu
     end
   end
 
   def place_bet
-    puts "Current wallet: $#{@player.wallet.amount}"
-    puts "Place your bet: "
-    @bet = gets.strip.to_f
+    puts "Current wallet: $#{@player.wallet}"
+    enough
     print `clear`
     puts "Current bet: $#{@bet}"
 
@@ -136,25 +140,44 @@ class Blackjack
     end
     print @dealer_total
     puts ""
-
+    puts ""
     if @player_total == 21
       puts "You win!"
-      @player.wallet.amount += @bet*2
-      puts "Wallet: $#{@player.wallet.amount}."
+      @player.wallet += @bet*2
+      puts "Wallet: $#{@player.wallet}."
     elsif @player_total > 21
       puts "You bust!"
       puts "Loser!"
-      @player.wallet.amount -= @bet
+      @player.wallet -= @bet
     elsif @dealer_total > @player_total
       puts "You lose!"
-      @player.wallet.amount -= @bet
-      puts "Wallet: $#{@player.wallet.amount}."
+      @player.wallet -= @bet
+      puts "Wallet: $#{@player.wallet}."
     elsif @player_total > @dealer_total
       puts "You win!"
-      @player.wallet.amount += @bet*2
-      puts "Wallet: $#{@player.wallet.amount}."
+      @player.wallet += @bet*2
+      puts "Wallet: $#{@player.wallet}."
     end
-    Blackjack.new(player)
+    puts ""
+    puts ""
+    puts ""
+    menu
   end
+
+  def enough
+    puts "How much do you want to bet?"
+    @bet = gets.to_i
+      if @bet < @player.wallet && @bet > 0
+      puts ""
+       else
+         puts ""
+         puts "Try again"
+         puts ''
+         puts "You have $#{@player.wallet}"
+         enough
+      end
+        puts""
+    end
+
 
 end

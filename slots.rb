@@ -65,12 +65,17 @@ end
 def enough
   puts "How much do you want to bet?"
   @bet = gets.to_i
-    if @bet < @player.wallet
+    if @bet < @player.wallet && @bet > 0
     puts ""
      else
-       puts "You don't have enough to bet that much."
+       puts ""
+       puts "Try again"
+       puts ''
+       puts "You have $#{@player.wallet}"
        enough
     end
       puts""
   end
+
+
 end

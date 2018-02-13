@@ -28,7 +28,7 @@ def throws
 
 
 rocklose = lambda {
-  `say "paper beats Rock, you lose"`
+  # `say "paper beats Rock, you lose"`
   puts "Paper beats Rock"
   puts "You Lose"
   @player.subtracting (@bet)
@@ -38,13 +38,13 @@ rocklose = lambda {
 
 
 rocktie = lambda {
-  `say tie game`
+  # `say tie game`
   puts "Rock Ties Rock"
   playagain
 }
 
 rockwin = lambda {
-  `say "Rock Beats Scissors, You Win!"`
+  # `say "Rock Beats Scissors, You Win!"`
   puts "Rock Beats Scissors"
   puts "You Win!"
   @player.adding (@bet)
@@ -54,7 +54,7 @@ rockwin = lambda {
 rockend = [rocklose, rocklose, rocktie, rocktie, rockwin]
 
 paperlose = lambda {
-  `say "scissors beats paper, you lose"`
+  # `say "scissors beats paper, you lose"`
   puts "scissors beats paper"
   puts "You Lose"
   @player.subtracting (@bet)
@@ -64,13 +64,13 @@ paperlose = lambda {
 
 
 papertie = lambda {
-  `say tie game`
+  # `say tie game`
   puts "Paper Ties Paper"
   playagain
 }
 
 paperwin = lambda {
-  `say "Paper Beats Rock, You Win!"`
+  # `say "Paper Beats Rock, You Win!"`
   puts "Paper Beats Rock"
   puts "You Win!"
   @player.adding (@bet)
@@ -80,7 +80,7 @@ paperwin = lambda {
 paperend = [paperlose, paperlose, papertie, papertie, paperwin]
 
   scissorslose = lambda {
-    `say "Rock beats Scissors, you lose"`
+    # `say "Rock beats Scissors, you lose"`
     puts "Rock beats Scissors"
     puts "You Lose"
     @player.subtracting (@bet)
@@ -90,13 +90,13 @@ paperend = [paperlose, paperlose, papertie, papertie, paperwin]
 
 
   scissorstie = lambda {
-    `say tie game`
+    # `say tie game`
     puts "Scissors Ties Scissors"
     playagain
   }
 
   scissorswin = lambda {
-    `say "scissors beats paper, You Win!"`
+    # `say "scissors beats paper, You Win!"`
     puts "Scissors beats Paper!"
     puts "You Win!"
     @player.adding (@bet)
@@ -137,15 +137,20 @@ end
   end
 
 
-def enough
-  puts "How much do you want to bet?"
-  @bet = gets.to_i
-    if @bet < @player.wallet
-    puts ""
-     else
-       puts "You don't have enough to bet that much."
-       enough
+  def enough
+    puts "How much do you want to bet?"
+    @bet = gets.to_i
+      if @bet < @player.wallet && @bet > 0
+      puts ""
+       else
+         puts ""
+         puts "Try again"
+         puts ''
+         puts "You have $#{@player.wallet}"
+         enough
+      end
+        puts""
     end
-      puts""
-  end
+
+
 end

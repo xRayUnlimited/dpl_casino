@@ -33,17 +33,17 @@ class Casino
     enter_game(gets.to_i)
   end
 
-  
+
   def enter_game(choice)
     case choice
       when 1
         Slots.new(@player, self)
       when 2
-        Blackjack.new(@player)
+        Blackjack.new(@player, self)
       when 3
         Rockpaperscissors.new(@player, self)
       when 4
-        puts "Goodbye"
+        puts "Take you $#{@player.wallet} and leave."
         exit
       else
         puts "Invalid Choice"
